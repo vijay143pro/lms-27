@@ -1,0 +1,64 @@
+<div class="register_container">
+    <div class="white_circle"></div>
+    <div class="img_con">
+        <img src="../../assets/logo.png" width="350px" height="250px" />
+    </div>
+    <div class="card form_container">
+        <h3>Signup</h3>
+        <form *ngIf="form_component_1" [formGroup]="form_data_1">
+            <div>
+                <label>Name</label>
+                <input type="text" name="name" class="form-control" formControlName="name" />
+                <p *ngIf="form_data_1.get('name')?.touched && form_data_1.get('name')?.invalid || display_all_err()" class="err" >
+                  Fill in a valid name
+                </p>
+              </div>
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" formControlName="email" />
+                <p *ngIf="form_data_1.get('email')?.touched && form_data_1.get('email')?.invalid " class="err">
+                    Enter a valid email from the augusta.com domain
+                </p>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" formControlName="password" />
+                <p *ngIf="form_data_1.get('password')?.touched && form_data_1.get('password')?.invalid " class="err">
+                    Password must contain 8 characters including 1 number, 1 special character, and 1 capital letter
+                </p>
+            </div>
+            <div>
+                <p style="text-align: center; margin-top: 20px;">Already have an account? <a href="login">Sign In</a></p>
+            </div>
+            <button class="btn btn-primary" (click)="continue()">continue</button>
+        </form>
+
+        <form *ngIf="form_component_2" class="secondData" [formGroup]="form_data_2">
+            <div class="user_total_input">
+                <label>Employee Id</label>
+                <input type="text" class="form-control" name="empId" formControlName="empId" />
+                <p *ngIf="form_data_2.get('empId')?.touched && form_data_2.get('empId')?.invalid " class="err">
+                    Fill valid data
+                </p>
+            </div>
+            <div style="display: flex; padding: 10px;" class="user_total_input">
+                <label>Team</label>
+                <input type="text" class="form-control" name="team" formControlName="team" />
+                <p *ngIf="form_data_2.get('team')?.touched && form_data_2.get('team')?.invalid" class="err">show</p>
+                <label>Role</label>
+                <input type="text" class="form-control" name="role" formControlName="role" />
+                <p *ngIf="form_data_2.get('role')?.touched && form_data_2.get('role')?.invalid" class="err">show</p>
+            </div>
+            <div class="user_total_input">
+                <label>date of join</label>
+                <input type="date" class="form-control" name="date_of_joining" formControlName="date_of_joining" />
+                <p *ngIf="form_data_2.get('date_of_joining')?.touched && form_data_2.get('date_of_joining')?.invalid" class="err">
+                    Fill valid data
+                </p>
+            </div>
+            <br />
+            <p (click)="back()" style="cursor: pointer;">back</p>
+            <button class="btn btn-primary" (click)="submit()">Submit</button>
+        </form>
+    </div>
+</div>

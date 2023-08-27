@@ -1,0 +1,148 @@
+<header style="display: inline-flex;">
+  <h3>Apply Leave</h3>
+  <button type="button" (click)="submitForm()" style="margin: 20px 0px 0px 650px">Send Email</button>
+</header>
+
+<section>
+  <form [formGroup]="emailForm">
+    <div>
+      <mat-form-field style="width: 500px;">
+        <mat-label>To</mat-label>
+        <input type="text" matInput [formControl]="searchControl" placeholder="Search">
+        <mat-select [formControl]="toppings1" multiple>
+          <mat-option *ngFor="let topping of toppingList | filter: searchControl.value" [value]="topping">{{topping}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="to_contained_topping">
+       
+        <p *ngFor="let top of toppings1.value">{{top}}</p>
+      </div>
+    </div><br/>
+    <div>
+     <div>
+      <mat-form-field style="width: 500px;">
+        <mat-label>CC</mat-label>
+        <mat-select [formControl]="toppings2" multiple>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+     </div>
+      
+      <div class="ccValues">
+        <p class="contained_cc_value" *ngIf="nameArray.includes('Giridharan V') || nameArray.includes('V Krishna Kumar')">{{ giri }}</p>
+        <p class="contained_cc_value" *ngIf="nameArray.includes('V Krishna Kumar')">{{ krish }}</p>
+        <div class="to_contained_topping">
+          <p *ngFor="let top of toppings2.value">{{top}}</p>
+        </div>
+      </div>
+    </div><br/>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Leave type</mat-label>
+        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" style="width: 300px;">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{ option.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div><br/>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Duration</mat-label>
+        <input type="text" matInput [formControl]="myDurationControl" [matAutocomplete]="durationAuto" style="width: 300px;">
+        <mat-autocomplete #durationAuto="matAutocomplete" [displayWith]="durationDisplayFn">
+          <mat-option *ngFor="let option of durationFilteredOptions | async" [value]="option">
+            {{ option.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+    
+    <div *ngIf="durationDateName == 'Oneday'; ">
+     
+    </div>
+   <div *ngIf="durationDateName == 'more than oneday'; else default" style="display: flex;">
+    <mat-form-field class="example-form-field">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="rangePicker">
+        <input matStartDate placeholder="Start date" (dateChange)="onStartDateChange($event)">
+        <input matEndDate placeholder="End date" (dateChange)="onEndDateChange($event)">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCancel>Cancel</button>
+          <button mat-raised-button color="primary" matDateRangePickerApply > Apply</button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
+    </mat-form-field>
+    <div style="margin-left: 200px;">
+      <p>from: {{ selectedFrom | date:'mediumDate' }}</p>
+      <p>To: {{ selectedTo | date:'mediumDate' }}</p>
+    </div>
+   </div>
+   <ng-template #default>
+    <mat-card class="demo-inline-calendar" style="width: 700px;">
+      <div class="calendar-content" style="display: flex;">
+        <mat-calendar [(selected)]="selected" class="small-calendar" style="width: 500px;"></mat-calendar>
+        <p style="margin-left: 50px; margin-top: 100px;">
+          Selected date: {{ getFormattedDate() }}
+        </p>
+      </div>
+    </mat-card> 
+   </ng-template>
+
+  
+
+   <div *ngIf="selected">
+    <mat-card>
+      <mat-card-content>
+        <mat-radio-group aria-label="Select an option">
+          <p> <mat-radio-button value="1">Half day</mat-radio-button></p>
+           <p><mat-radio-button value="2">Full day</mat-radio-button></p>
+         </mat-radio-group>
+      </mat-card-content>
+    </mat-card>
+    </div>
+    
+    
+    
+      <div *ngIf="selectedFrom && selectedTo">
+        <div *ngFor="let date of getDateRangeArray(selectedFrom, selectedTo)">
+          <mat-card style="margin-bottom: 50px; margin-top: 10px;">
+            {{ date | date:'mediumDate' }}
+            <mat-card-content>
+              <mat-radio-group aria-label="Select an option">
+                <mat-radio-button value="1" (change)="onRadioSelectionChange(date, 'Half day')"
+                  [checked]="dateRadioSelections[date.toISOString()] === 'Half day'">Half day</mat-radio-button>
+                <mat-radio-button value="2" (change)="onRadioSelectionChange(date, 'Full day')"
+                  [checked]="dateRadioSelections[date.toISOString()] === 'Full day'">Full day</mat-radio-button>
+              </mat-radio-group>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+ <div>
+ <p>Reason :</p>
+  <textarea rows="4" cols="50"></textarea>
+ </div>
+    
+
+
+  </form>
+</section>
+
+
+
+
+<!-- <div *ngFor="let days of totalDateInArray">
+ 
+  </div> -->
+
+
+
+          
+
+

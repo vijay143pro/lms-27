@@ -1,0 +1,56 @@
+.profile_header_container{
+    display: flex;
+    padding: 50px;
+  
+}
+.basic_info_data {
+    cursor: pointer;
+  }
+  
+  .basic_info_data.active {
+    text-decoration: underline 5px solid rgb(71, 138, 224);
+  
+  }
+  .other_info_header {
+    margin-left: 100px;
+    cursor: pointer;
+  }
+  
+  .other_info_header.active {
+    
+    text-decoration: underline 5px solid rgb(71, 138, 224);
+  }
+
+.img_text_container{
+    display: flex;
+   justify-content: space-between;
+    
+}
+
+.img-content{
+    margin-left: 25px;
+}
+.text-content{
+    margin-left: 80px;
+}
+.info_dat p{
+    color: rgb(122, 111, 111);
+}
+
+.info_table tr ,td{
+    
+    padding-right: 100px;
+    width: 40%;
+}
+.info_table{
+    margin-left: 20px;
+}
+
+
+
+.basic_info_tab_data{
+    cursor: pointer;
+}
+.basic_other_tab_data{
+    
+}

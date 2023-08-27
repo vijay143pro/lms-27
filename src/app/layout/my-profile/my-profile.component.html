@@ -1,0 +1,347 @@
+
+<div class="profile_header_container tab-content"  [@tabFade]="selectedTab">
+    <p class="basic_info_data" (click)="basic_info_tab()" [ngClass]="{'active': selectedTab === 'basic'}">Basic Info</p>
+    <p class="other_info_header" (click)="other_info_tab()" [ngClass]="{'active': selectedTab === 'other'}">Other Info</p>
+  </div>
+  
+  
+ 
+ 
+ <div class="content-container">
+    
+            <div class="basic_info" *ngIf="basic_info_data==true">
+                    
+        <div class="name" style="padding-left: 10px;">
+            <h3>{{myProfileData.name}}</h3><br/>
+        </div>   
+
+    <div class="side_img">
+        <ng-container *ngIf="editImg==false; else editedI">
+            <div class="img_text_container">
+              <div class="img-content">
+                <input type="file" (change)="onImageSelected($event)">
+               
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-template #editedI>
+            <div class="img_text_container">
+              <div class="img-content">
+                
+                <ng-container *ngIf="base64Image; else uploadOption">
+                  <img [src]="base64Image" width="200px" height="200px" style="padding-bottom: 10px; border-radius: 50%;"/>
+                  <label for="fileInput" style="cursor: pointer;">
+                    <mat-icon>edit</mat-icon>
+                  </label>
+                  <input id="fileInput" type="file" (change)="onImageSelected($event)" style="display: none;">
+                </ng-container>
+                
+                <ng-template #uploadOption>
+                  <input type="file" (change)="onImageSelected($event)">
+                </ng-template>
+              
+            </div>
+            </div>
+          </ng-template>
+          
+    </div>
+
+        <div class="text-content">
+            <div>
+                <div class="info_dat">
+                    <h6>{{"Employee Id"}}</h6>
+                    <p>Int_data</p>
+                </div><br/>
+
+                <div class="info_dat">
+                    <h6>{{"Email address"}}</h6>
+                    <p>{{myProfileData.email}}</p>
+                </div><br/>
+
+                <div class="info_dat">
+                    <h6>{{"Team"}}</h6>
+                    <p>Team_name</p>
+                </div><br/>
+
+                <div>
+                    <h6>{{"Leave Balance"}}</h6>
+                    <p></p>
+                </div><br/>
+
+                <div class="info_dat">
+                    <h6>{{"Role"}}</h6>
+                    <p>{{myProfileData.role}}</p>
+                </div><br/>
+
+                <div class="info_dat">
+                    <h6>{{"Desigination"}}</h6>
+                    <p>-</p>
+                </div><br/>
+
+            </div>
+        </div>
+    </div>
+            </div>
+
+
+            <div class="other_info" *ngIf=" other_info_data==true;" >
+                <h3>Personal Details <span (click)="toggleEdit()">
+                    <span *ngIf="!editMode; else editModeTemplate">
+                        <mat-icon>edit</mat-icon>
+                    </span>
+                    <ng-template #editModeTemplate>
+                        <mat-icon>save</mat-icon>
+                    </ng-template>
+                </span></h3>
+
+                    <table class="info_table" >
+                        <tr>
+                            <td>
+                                <h5>Dob</h5>
+                                <ng-container *ngIf="!editMode; else editDob">
+                                    <p>{{ updatedUserData.dob  | date }}</p>
+                                </ng-container>
+                                <ng-template #editDob>
+                                    <input type="date" [(ngModel)]="editedDob">
+                                </ng-template>
+                               
+                            </td>
+                            
+                            <td>
+                                <h5>Gender</h5>
+                                <ng-container *ngIf="!editMode; else editGender">
+                                  <p>{{ updatedUserData.gender }}</p>
+                                </ng-container>
+                                <ng-template #editGender>
+                                  <mat-form-field>
+                                    <mat-label>Select an option</mat-label>
+                                    <mat-select [(ngModel)]="selectedGender" name="selectedGender">
+                                      <mat-option *ngFor="let option of genderOptions" [value]="option.value">
+                                        {{ option.label }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </ng-template>
+                              </td>
+
+                            <td>
+                              <h5>Blood</h5>
+                              <ng-container *ngIf="!editMode; else editBlood">
+                                  <p>{{ updatedUserData.blood }}</p>
+                              </ng-container>
+                              <ng-template #editBlood>
+                                <mat-form-field>
+                                    <mat-label>Select an option</mat-label>
+                                    <mat-select [(ngModel)]="selectedBlood">
+                                      <mat-option *ngFor="let option of  bloodOptions" [value]="option.value">
+                                        {{ option.label }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                              </ng-template>
+                              
+                          </td>
+                          
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                <h5>Self contact number</h5>
+                                <ng-container *ngIf="!editMode; else editContactNumber">
+                                    <p>{{ updatedUserData.contactNumber }}</p>
+                                </ng-container>
+                                <ng-template #editContactNumber>
+                                    <input type="text" [(ngModel)]="editedContactNumberValue">
+                                </ng-template>
+                            </td>
+ 
+                            <td>
+                              <h5>Emergency contact Number</h5>
+                              <ng-container *ngIf="!editMode; else editEmergencyNumber">
+                                  <p>{{  updatedUserData.emergencyNumber }}</p>
+                              </ng-container>
+                              <ng-template #editEmergencyNumber>
+                                  <input type="text" [(ngModel)]="editedEmergencyNumberValue">
+                              </ng-template>
+                          </td>
+ 
+                          <td>
+                            <h5>Religion</h5>
+                            <ng-container *ngIf="!editMode; else editReligion">
+                                <p>{{ updatedUserData.religion}}</p>
+                            </ng-container>
+                            <ng-template #editReligion>
+                                <mat-form-field>
+                                    <mat-label>Religion</mat-label>
+                                    <mat-select [(ngModel)]="selectedReligion">
+                                      <mat-option *ngFor="let option of  religionOptions" [value]="option.value">
+                                        {{ option.label }}
+                                      </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                            </ng-template>
+                        </td>
+                         </tr>
+
+                         <tr>
+                            <td>
+                                <h5>Father's Name</h5>
+                                <ng-container *ngIf="!editMode; else editFatherName">
+                                  <p>{{ updatedUserData.fatherName }}</p>
+                                </ng-container>
+                                <ng-template #editFatherName>
+                                  <input type="text" [(ngModel)]="editedFatherNameValue">
+                                </ng-template>
+                              </td>
+                      
+                          <td>
+                              <h5>Father's DOB</h5>
+                              <ng-container *ngIf="!editMode; else editFatherDob">
+                                  <p>{{ updatedUserData.fatherDob | date}}</p>
+                              </ng-container>
+                              <ng-template #editFatherDob>
+                                  <input type="date" [(ngModel)]="editedFatherDobValue">
+                              </ng-template>
+                          </td>
+                      
+                          <td>
+                              <h5>Father's Occupation</h5>
+                              <ng-container *ngIf="!editMode; else editFatherOccupation">
+                                  <p>{{  updatedUserData.fatherOccupation }}</p>
+                              </ng-container>
+                              <ng-template #editFatherOccupation>
+                                  <input type="text" [(ngModel)]="editedFatherOccupationValue">
+                              </ng-template>
+                          </td>
+                      </tr>
+                      
+                      <tr>
+                        <td>
+                            <h5>Mother's Name</h5>
+                            <ng-container *ngIf="!editMode; else editedMotherName">
+                                <p>{{  updatedUserData.motherName }}</p>
+                            </ng-container>
+                            <ng-template #editedMotherName>
+                                <input type="text" [(ngModel)]="editedMotherNameValue">
+                            </ng-template>
+                        </td>
+                    
+                        <td>
+                            <h5>Mother's DOB</h5>
+                            <ng-container *ngIf="!editMode; else editedMotherDob">
+                                <p>{{  updatedUserData.motherDob |date }}</p>
+                            </ng-container>
+                            <ng-template #editedMotherDob>
+                                <input type="date" [(ngModel)]="editedMotherDobValue">
+                            </ng-template>
+                        </td>
+                    
+                        <td>
+                            <h5>Mother's Occupation</h5>
+                            <ng-container *ngIf="!editMode; else editedMotherOccupation">
+                                <p>{{  updatedUserData.motherOccupation }}</p>
+                            </ng-container>
+                            <ng-template #editedMotherOccupation>
+                                <input type="text" [(ngModel)]="editedMotherOccupationValue">
+                            </ng-template>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                      <td>
+                          <h5>Marital Status</h5>
+                          <ng-container *ngIf="!editMode; else editedMaritalStatus">
+                              <p>{{  updatedUserData.maritalStatus }}</p>
+                          </ng-container>
+                          <ng-template #editedMaritalStatus>
+                              <input type="text" [(ngModel)]="editedMaritalStatusValue">
+                          </ng-template>
+                      </td>
+                  
+                      <td>
+                          <h5>Marriage Date</h5>
+                          <ng-container *ngIf="!editMode; else editedMarriageStatus">
+                              <p>{{  updatedUserData.marriageDate }}</p>
+                          </ng-container>
+                          <ng-template #editedMarriageStatus>
+                              <input type="date" [(ngModel)]="editedMarriageDateValue">
+                          </ng-template>
+                      </td>
+                  
+                      <td>
+                          <h5>Spouse Name</h5>
+                          <ng-container *ngIf="!editMode; else editedSpouseName">
+                              <p>{{  updatedUserData.spouseName }}</p>
+                          </ng-container>
+                          <ng-template #editedSpouseName>
+                              <input type="text" [(ngModel)]="editedSpouseNameValue">
+                          </ng-template>
+                      </td>
+                  </tr>
+                         
+                  <tr>
+                    <td>
+                        <h5>firstChildDob</h5>
+                        <ng-container *ngIf="!editMode; else editedFirchildDob">
+                            <p>{{  updatedUserData.firstChildDob }}</p>
+                        </ng-container>
+                        <ng-template #editedFirchildDob>
+                            <input type="date" [(ngModel)]="editedFirchildDobValue">
+                        </ng-template>
+                    </td>
+
+
+                    <td>
+                      <h5>Second child Name</h5>
+                      <ng-container *ngIf="!editMode; else editedSecondChildName">
+                          <p>{{ secondChildName }}</p>
+                      </ng-container>
+                      <ng-template #editedSecondChildName>
+                          <input type="text" [(ngModel)]="editedSecondChildNameValue">
+                      </ng-template>
+                  </td>
+                
+                  <td>
+                    <h5>Second Child Dob</h5>
+                    <ng-container *ngIf="!editMode; else editedSecondChildDob">
+                        <p>{{  updatedUserData.secondChildDob }}</p>
+                    </ng-container>
+                    <ng-template #editedSecondChildDob>
+                        <input type="date" [(ngModel)]="editedSecondChildDobValue">
+                    </ng-template>
+                </td>
+
+                </tr>
+                <tr>
+                  <td>
+                      <h5>thirdChildName</h5>
+                      <ng-container *ngIf="!editMode; else editedThirdChildName">
+                          <p>{{  updatedUserData.thirdChildName }}</p>
+                      </ng-container>
+                      <ng-template #editedThirdChildName>
+                          <input type="text" [(ngModel)]="editedThirdChildNameValue">
+                      </ng-template>
+                  </td>
+              
+                  <td>
+                      <h5>Third Child Dob</h5>
+                      <ng-container *ngIf="!editMode; else editedThirdChildDob">
+                          <p>{{  updatedUserData.thirdChildDob }}</p>
+                      </ng-container>
+                      <ng-template #editedThirdChildDob>
+                          <input type="date" [(ngModel)]="editedThirdChildDobValue">
+                      </ng-template>
+                  </td>
+              
+                  
+              </tr>
+          
+                    </table>
+
+                    <div>
+                       
+                    </div>
+            </div>
+ 

@@ -1,0 +1,69 @@
+
+  .example-full-width{
+    width: 500px;
+  }
+  .to_div input{
+    width: 300px;
+    height: 50px;
+    margin-bottom: 10px;
+  }
+  .cc_div input{
+    width: 500px;
+    height: 50px;
+   
+  }
+  .toValues{
+    flex-wrap: wrap;
+    display: flex;
+  }
+  .to_contained_values{
+    padding: 10px;
+    margin-left: 10px;
+    background-color: rgb(123, 195, 228);
+    border-radius: 50px;
+    box-shadow:2px 1px rgba(0,0,0,0.5) ;
+  }
+  .ccValues{
+    display: flex;
+    flex-wrap: wrap
+  }
+  .contained_cc_value {
+    padding: 10px;
+    margin-left: 10px;
+    background-color: rgb(123, 195, 228);
+    border-radius: 50px;
+    box-shadow:2px 1px rgba(0,0,0,0.5) ;
+  }
+
+  .to_contained_topping{
+    display: flex;
+    
+  }
+ 
+  .to_contained_topping p{
+    padding: 10px;
+    margin-left: 10px;
+    background-color: rgb(123, 195, 228);
+    border-radius: 50px;
+    box-shadow:2px 1px rgba(0,0,0,0.5) ;
+  }
+
+  .demo-inline-calendar {
+    margin-top: 20px;
+    width: 500px;
+    height: 550px;
+    display: flex;
+  }
+  
+  
+  
+
+  p {
+    margin-left: 10px; 
+  }
+
+  section{
+    margin-left: 50px;
+  }
+  
+ 
